@@ -1,4 +1,6 @@
-import { useEffect, useRef } from "react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import css from "./Modal.module.css";
 import { createPortal } from "react-dom";
 
@@ -7,11 +9,15 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const modalRoot = document.getElementById("modal-root") as HTMLElement;
-
 export default function Modal({ children, onClose }: ModalProps) {
+  const [mounted, setMounted] = useState(false);
+  const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    setMounted(true);
+    const root = document.getElementById("modal-root");
+    setModalRoot(root);
+
     document.body.style.overflow = "hidden";
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -33,10 +39,7 @@ export default function Modal({ children, onClose }: ModalProps) {
     }
   };
 
-  if (!modalRoot) {
-    console.error("modal-root not found");
-    return null;
-  }
+  if (!mounted || !modalRoot) return null;
 
   return createPortal(
     <div

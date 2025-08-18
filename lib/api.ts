@@ -2,6 +2,7 @@ import axios, { type AxiosResponse } from "axios";
 import type { Note } from "../types/note";
 
 
+
 const BASE_URL = "https://notehub-public.goit.study/api/notes";
 const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
@@ -46,5 +47,15 @@ export const deleteNote = async (id: string): Promise<Note> => {
         }
     }
     const response: AxiosResponse<Note> = await axios.delete(`${BASE_URL}/${ id }`, config);
+    return response.data;
+}
+
+export const fetchNoteById = async (id: string): Promise<Note> => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${myKey}`,
+        }
+    }
+    const response: AxiosResponse<Note> = await axios.get(`${BASE_URL}/${id}`, config);
     return response.data;
 }
