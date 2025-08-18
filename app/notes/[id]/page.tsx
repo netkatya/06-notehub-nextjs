@@ -6,11 +6,7 @@ import {
 } from "@tanstack/react-query";
 import NoteDetailsClient from "./NoteDetails.client";
 
-interface NotePageProps {
-  params: { id: string };
-}
-
-const NoteDetails = async ({ params }: NotePageProps) => {
+const NoteDetails = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
   const queryClient = new QueryClient();
 
