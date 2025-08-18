@@ -2,8 +2,12 @@ import { fetchNoteById } from "@/lib/api";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import NoteDetailsClient from "./NoteDetails.client";
 
-const NoteDetails = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+interface NotePageProps {
+  params: Promise<{ id: string }>;
+}
+
+const NoteDetails = async ({ params }: NotePageProps) => {
+  const { id } = await params;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
