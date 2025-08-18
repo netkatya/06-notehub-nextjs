@@ -6,7 +6,6 @@ import { fetchNoteById } from "@/lib/api";
 
 import css from "./NoteDetails.page.module.css";
 import Loader from "@/app/loading";
-import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 interface NoteDetailsClientProps {
   noteId: string;
@@ -18,11 +17,9 @@ export default function NoteDetailsClient({
   dehydratedState,
 }: NoteDetailsClientProps) {
   return (
-    <TanStackProvider>
-      <HydrationBoundary state={dehydratedState}>
-        <NoteContent noteId={noteId} />
-      </HydrationBoundary>
-    </TanStackProvider>
+    <HydrationBoundary state={dehydratedState}>
+      <NoteContent noteId={noteId} />
+    </HydrationBoundary>
   );
 }
 
