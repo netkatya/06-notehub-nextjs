@@ -58,7 +58,11 @@ const App = () => {
       {isFetching && <Loader />}
       {isError && <p>Error: {(error as Error).message}</p>}
       {data && data.notes.length === 0 && !isFetching && (
-        <p className={css.notfound}>No notes found for "{debouncedSearch}"</p>
+        <p className={css.notfound}>
+          {debouncedSearch
+            ? `No notes found for "${debouncedSearch}"`
+            : "No notes found"}
+        </p>
       )}
       {data && data.notes && data.notes.length > 0 && (
         <NoteList notes={data.notes} />
