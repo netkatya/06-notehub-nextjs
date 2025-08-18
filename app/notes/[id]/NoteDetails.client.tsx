@@ -7,17 +7,18 @@ import { fetchNoteById } from "@/lib/api";
 import css from "./NoteDetails.page.module.css";
 import Loader from "@/app/loading";
 
-export default function NoteDetailsClient() {
-  const params = useParams<{ id: string }>();
-  const rawId = params.id;
+interface NoteDetailsClientProps {
+  noteId: string;
+}
 
+export default function NoteDetailsClient({ noteId }: NoteDetailsClientProps) {
   const {
     data: note,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["note", rawId],
-    queryFn: () => fetchNoteById(rawId),
+    queryKey: ["note", noteId],
+    queryFn: () => fetchNoteById(noteId),
     refetchOnMount: false,
   });
 

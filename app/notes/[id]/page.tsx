@@ -21,7 +21,7 @@ const NoteDetails = async ({ params }: NotePageProps) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NoteDetailsClient />
+      <NoteDetailsClient noteId={id} />
     </HydrationBoundary>
   );
 };
